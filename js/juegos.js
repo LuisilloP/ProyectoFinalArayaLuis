@@ -17,10 +17,10 @@
  }
  const arregloJuegosPs4 =[];
  const arregloJuegosSwitch=[];
-const juegodbz = new Juego(0,"Dragon Ball kakarot","./Img/dbzJuego.jpg",30000,"PS4",5);
-const juegogta = new Juego(1,"GTA V","./Img/gtaJuego.jpg",30000,"PS4",5);
+const juegodbz = new Juego(0,"Dragon Ball kakarot","./Img/dbzJuego.jpg",30000,"PS4",2);
+const juegogta = new Juego(1,"GTA V","./Img/gtaJuego.jpg",30000,"PS4",3);
 const juegounc = new Juego(2,"Uncharted","./Img/unchar.png",30000,"PS4",5);
-const juegogod = new Juego(3,"God of War","./Img/godJuego.jpg",50000,"PS4",5);
+const juegogod = new Juego(3,"God of War","./Img/godJuego.jpg",50000,"PS4",7);
 
 arregloJuegosPs4.push(juegodbz,juegogta,juegounc,juegogod);
 JSON.stringify(arregloJuegosPs4);
@@ -91,43 +91,14 @@ arregloJuegosSwitch.forEach(juego=>
   const btn = document.getElementById('boton');
   btn.addEventListener("click",()=>
   {
-    const compras = document.querySelector('.contenedorJuego.seleccionado .id input').value;
-    console.log(compras);
+    //alert("estas comprando");
+    const compras = document.querySelectorAll('.contenedorJuego.seleccionado .id input ');
+    for(let i=0 ;i<compras.length;i++)
+    {
+      alert(compras[i].value);
+
+    }
+    
  
   })
 
-
-
-// const precioJuegos =["30000","20000","40000"];
-// 
-// const cantidadGta =  document.getElementById("cantidadGta");
-// const cantidadDbz =  document.getElementById("cantidadDbz");
-// const cantidadUnc =  document.getElementById("cantidadUnc");
-
-//  let total = 0;
-//  btn.addEventListener("click",()=>
-//  {
-//      if(cantidadGta.value!=0 || cantidadDbz.value !=0 || cantidadUnc.value !=0)
-//      {
-//          for(let i = 0; i<precioJuegos.length;i++)
-//          {
-//             switch (i)
-//             {
-//              case 0:
-//                  if(cantidadDbz.value!=0)total +=precioJuegos[i]*cantidadDbz.value;
-//                  break;
-//              case 1:
-//                  if(cantidadGta.value!=0)total +=precioJuegos[i]*cantidadGta.value;  
-//                  break;
-//              case 2:
-//                  if(cantidadUnc.value!=0)total +=precioJuegos[i]*cantidadUnc.value;
-//                  break;        
-//             }
-//          }
-//      alert("Su tutal es de "+total);
-//      total=0;
-//      }else
-//      {
-//          alert("ingresa una cantidad de algun producto");
-//      }
-//  }); 
