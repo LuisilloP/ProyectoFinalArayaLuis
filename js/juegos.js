@@ -14,7 +14,6 @@
       stock>venta ?respuesta=stock-venta: respuesta="no se puede realizar la venta ya que el stock es insufuciente";
       return respuesta;
     }
-    
  }
  const arregloJuegosPs4 =[];
  const arregloJuegosSwitch=[];
@@ -27,8 +26,6 @@ arregloJuegosPs4.push(juegodbz,juegogta,juegounc,juegogod);
 JSON.stringify(arregloJuegosPs4);
 
 console.log(arregloJuegosPs4);
-
-
 const contenedorJuegos = document.getElementById('contenedorJuegos');     
 arregloJuegosPs4.forEach(juego => 
 {
