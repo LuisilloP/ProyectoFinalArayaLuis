@@ -1,0 +1,95 @@
+@use"../globales/variables" as v;
+@use"../globales/mixings" as m;
+header
+{
+
+     @include m.flex(row,wrap,space-between,center);
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2629784335609243) 76%); 
+    position: fixed;
+    width: 100%;
+    transition: all .5s ease;
+    padding: 1rem;
+    &.sigue //cuando tiene la clase sigue
+    {
+        transition: all .5s ease;
+        background-color: rgb(0,0,0,0.5);
+
+        padding: 0;
+    }    
+
+    .tituloNav
+    {
+       color: rgb(255, 255, 255);
+       font-family: "Press Start 2P", cursive;
+       font-size: 2.7rem;
+       text-decoration: none;
+       margin-bottom: 0;
+    }
+    .svg
+    {
+        fill: white;
+        width: 2rem;
+        height: 2rem;
+        
+    }
+    .boton-svg
+    {
+        background-color: transparent;
+    border: none;
+    display: none;
+    @include m.media(){display: block;}
+    &:hover
+    {
+        cursor: pointer;
+    }
+    }
+    .nav
+    {
+        @include m.media()
+        {
+            width: 100%;
+            //display: none;
+            height: 0vh;
+            opacity: 0;
+            transition: all .5s ease;
+            //pointer-events: none;
+            overflow: hidden;
+            @include m.flex(column,nowrap,center,center);
+            &.active
+            {
+                height: 30vh;
+                opacity: 1;
+                //pointer-events: auto;
+                //display: flex;
+                
+            }
+        }
+  
+        .ul
+        {
+            @include m.flex(row,wrap,flex-end,center);
+            @include m.media()
+            {
+                flex-direction: column;
+                padding-left: 0;
+            }
+            
+        }
+        .li
+        {
+            margin: 0.5rem;
+            list-style: none;
+            @include m.media
+            {
+                margin: 1rem 0;
+            }
+           a{
+                color: white;
+            }
+        }
+    }
+    a{
+        color: inherit;
+    }
+}

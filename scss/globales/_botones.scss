@@ -1,0 +1,18 @@
+@use "../globales/variables";
+#boton
+{
+    width: 160px;
+    height: 45px;
+    border-radius: 3px;
+    background-color: black;
+    font-weight: 600;
+    font-size: 18px;
+    border-style: none;
+    color: white;
+    &:hover
+    {
+        cursor: pointer;
+        filter: brightness(96%);
+    }
+}
+

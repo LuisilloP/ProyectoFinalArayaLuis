@@ -1,0 +1,58 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body {
+    //font-family: var.$fuente_principal;
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin: 0 0 0 0;
+    background-color: #212020;
+}
+p {
+    //color: var.$negro;
+    font-size: 1.4rem;
+    
+}
+.contenedor {
+    width: 95%;
+    max-width: 110rem;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.anuncio img,picture
+{
+    height: 27rem;
+}
+img,
+picture {
+    width: 100%;
+    display: block;
+    border-radius: 20px 20px 0 0 ;
+}
+h1 {
+    font-size: 3rem;
+    margin-top: 0;
+}
+h2 {
+    font-size: 3.4rem;
+}
+h3 {
+    font-size: 3rem;
+}
+
+//utilidad 
+.content 
+{
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+}

@@ -1,0 +1,13 @@
+@mixin flex($dir,$wrap,$just,$aling) {
+    display: flex;
+    flex-flow: $dir $wrap;
+    justify-content: $just;
+    align-items: $aling;
+    
+}
+@mixin media {
+    @media screen and (max-width:768px)
+    {
+        @content
+    }
+}
