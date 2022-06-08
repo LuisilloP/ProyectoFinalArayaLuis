@@ -29,17 +29,18 @@ console.log(arregloJuegosPs4);
 const contenedorJuegos = document.getElementById('contenedorJuegos');     
 arregloJuegosPs4.forEach(juego => 
 {
-  let contenidoJuego = `  
+  let contenidoJuego = `
   <img src="${juego['img']}" class="img">
   <p>${juego['nombre']}</p>
   <div class="txtContenedor">
-  <div class ="content">
-    <p>Precio</p> <p class="precios" >${juego['precio']}</p>
-    <input type ="hidden" value =${juego['id']}/>
-  </div>
-  <div class="content"> 
-    <p>Stock </p><p class="precios" >${juego['stock']}</p>
-   </div>
+    <div class ="content">
+      <p>Precio</p> <p class="precios" >${juego['precio']}</p>
+    </div>
+    <div class="content"> 
+      <p>Stock </p><p class="precios" >${juego['stock']}</p>
+    </div>
+ </div>
+ <div class="id"><input type ="hidden" value =${juego['id']}></div>
   `;
   const contenedor = document.createElement('div'); 
   contenedor.setAttribute('class','contenedorJuego');
@@ -59,14 +60,14 @@ arregloJuegosSwitch.forEach(juego=>
     <img src="${juego['img']}" class="img">
     <p>${juego['nombre']}</p>
     <div class="txtContenedor">
-    <div class ="content">
-    <p>Precio</p> <p class="precios" >${juego['precio']}</p>
-    <input type ="hidden" value =${juego['id']}>
-    </div>
-    <div class="content"> 
-    <p>Stock </p><p class="precios" >${juego['stock']}</p>
+      <div class ="content">
+        <p>Precio</p> <p class="precios" >${juego['precio']}</p>
+      </div>
+      <div class="content"> 
+        <p>Stock </p><p class="precios" >${juego['stock']}</p>
+      </div>
    </div>
-   </div>
+   <div class="id"><input type ="hidden" value =${juego['id']}></div>
     `;
     var contenedor = document.createElement('div');
     contenedor.setAttribute('class','contenedorJuego');
@@ -74,14 +75,31 @@ arregloJuegosSwitch.forEach(juego=>
     contenedorJuegos.appendChild(contenedor);
   });
 
-
-
         
+
+  const cJuego = document.querySelectorAll('.contenedorJuego');
+  for (let i = 0; i < cJuego.length; i++) {
+    cJuego[i].addEventListener("click", function() {
+        
+        cJuego[i].classList.toggle("seleccionado");
+        
+      
+    
+      });
+  }
+
+  const btn = document.getElementById('boton');
+  btn.addEventListener("click",()=>
+  {
+    const compras = document.querySelector('.contenedorJuego.seleccionado .id input').value;
+    console.log(compras);
+ 
+  })
 
 
 
 // const precioJuegos =["30000","20000","40000"];
-// const btn = document.getElementById('boton');
+// 
 // const cantidadGta =  document.getElementById("cantidadGta");
 // const cantidadDbz =  document.getElementById("cantidadDbz");
 // const cantidadUnc =  document.getElementById("cantidadUnc");

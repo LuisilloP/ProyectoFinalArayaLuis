@@ -8,7 +8,8 @@ btn.addEventListener("click",()=>
 });
 window.addEventListener("scroll",()=>
 {
-        const header = document.querySelector('header');
-        header.classList.toggle("sigue",window.scrollY>0);
+    const header = document.querySelector('header');
+    header.classList.toggle("sigue",window.scrollY>0);
 
 })
+
