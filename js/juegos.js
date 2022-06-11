@@ -82,4 +82,5 @@ const contenedorJuegos = document.getElementById('contenedorJuegos');
     }
     //debugger;
     alert("su total es de $"+total);
-  });
+  }); 
+  
