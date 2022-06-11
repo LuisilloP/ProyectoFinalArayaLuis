@@ -4,10 +4,26 @@
     justify-content: $just;
     align-items: $aling;
     
-}
+};
+
+
+@mixin baja {
+    @media screen and (max-width:400px)
+    {
+        @content
+    }
+};
 @mixin media {
     @media screen and (max-width:768px)
     {
         @content
     }
+};
+@mixin mediaAlta {
+    @media screen and (max-width:1000px)
+    {
+        @content
+    }
 }
+
+
