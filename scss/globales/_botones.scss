@@ -1,18 +1,23 @@
 @use "../globales/variables";
-#boton
+.boton
 {
     width: 160px;
     height: 45px;
-    border-radius: 3px;
+    border-radius: 8px;
     background-color: black;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
     border-style: none;
-    color: white;
+    color: rgb(255, 255, 255);
+    margin: 1rem;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    transition: all .3s ease;
     &:hover
     {
+        
         cursor: pointer;
-        filter: brightness(96%);
+        box-shadow: 1px 0px 5px 1px rgb(255, 255, 255);
+       
     }
 }
 

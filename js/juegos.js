@@ -3,10 +3,10 @@ const arregloJuegosPs4 =[]; // creaccion de arreglos
 const arregloJuegosSwitch=[];
 
 const creaArregloPS4 = ()=>{ // poblar arreglos
-const juegodbz = new Juego(0,"Dragon Ball kakarot","./Img/dbzJuego.jpg",30000,"PS4",2);
+const juegodbz = new Juego(0,"God of War","./Img/godJuego.jpg",50000,"PS4",7);
 const juegogta = new Juego(1,"GTA V","./Img/gtaJuego.jpg",30000,"PS4",3);
 const juegounc = new Juego(2,"Uncharted","./Img/unchar.png",30000,"PS4",5);
-const juegogod = new Juego(3,"God of War","./Img/godJuego.jpg",50000,"PS4",7);
+const juegogod = new Juego(3,"Dragon Ball kakarot","./Img/dbzJuego.jpg",30000,"PS4",2);
 arregloJuegosPs4.push(juegodbz,juegogta,juegounc,juegogod);
 JSON.stringify(arregloJuegosPs4);
 }
@@ -19,7 +19,7 @@ const crearArregloSwitch =()=>{// poblar arreglos
   arregloJuegosSwitch.push(juegomarioOdyssey,juegoSmash,juegoPokemonPika,juegozelda);
   }
 
-creaArregloPS4();
+creaArregloPS4();//iniciar arreglos
 crearArregloSwitch();
 
 const contenedorJuegos = document.getElementById('contenedorJuegos');
@@ -50,17 +50,25 @@ const contenedorJuegos = document.getElementById('contenedorJuegos');
   CreaContenedorJuego(arregloJuegosPs4);
   CreaContenedorJuego(arregloJuegosSwitch);
 
+  //Togle para destacar un juego al hacerle un click y luego precionar comprar;
+  function Destacador (){
   const cJuego = document.querySelectorAll('.contenedorJuego');
   for (let i = 0; i < cJuego.length; i++) {
     cJuego[i].addEventListener("click", function() {
         cJuego[i].classList.toggle("seleccionado");
+        
       });
   }
+}
+Destacador();
+  ///////////////////////////////////////////////
+  /////   
   const arregloJuegos = arregloJuegosPs4.concat (arregloJuegosSwitch);
-  const btn = document.getElementById('boton');
-  btn.addEventListener("click",()=>
+  const btnComprar = document.getElementById('botonComprar');
+  btnComprar.addEventListener("click",()=>
   {
     let total =0;
+    let nombreJuego ="";
     //alert("estas comprando");
     const compras = document.querySelectorAll('.contenedorJuego.seleccionado .id input ');
     const stock = document.querySelectorAll('.contenedorJuego.seleccionado .txtContenedor .content .stock');
@@ -71,8 +79,7 @@ const contenedorJuegos = document.getElementById('contenedorJuegos');
        {
         if(juegoi.id==compras[i].value)
         {
-          
-            juegoi.stock==0?stock[i].innerHTML="Agotado":(total+=juegoi.precio,
+            juegoi.stock==0?stock[i].innerHTML="Agotado":(total+=juegoi.precio,nombreJuego+=" "+juegoi.nombre,
              stock[i].innerHTML=juegoi.descontarStock(1),
              juegoi.stock==0?stock[i].innerHTML="Agotado":""
              );
@@ -81,6 +88,56 @@ const contenedorJuegos = document.getElementById('contenedorJuegos');
        });
     }
     //debugger;
-    alert("su total es de $"+total);
-  }); 
+    total==0?alert("No puede Seleccionar esto"):alert("su total es de $"+total+"  "+nombreJuego);
+ }); 
+
+ const btnBuscar = document.getElementById("botonBuscar");
+
+ btnBuscar.addEventListener("click",()=>
+ {
+  
+    LimpiarJuegos();
+    const buscaMenor = document.querySelector("#inputValorBuscarMenor").value;
+    const buscaMayor = document.querySelector("#inputValorBuscarMayor").value;
+    if(parseInt(buscaMenor)>parseInt(buscaMayor))
+    {
+      debugger;
+      alert("Pone bien los valores")}else
+    {
+    const nuevoResultado =BuscarPorArreglo("Precio",arregloJuegos,parseInt(buscaMenor)||0,parseInt(buscaMayor));
+    console.log(nuevoResultado);
+    CreaContenedorJuego(nuevoResultado);
+    Destacador();
+    }
+ });
+ function BuscarPorArreglo(tipoBusqueda,arreglo,valormin=0,valormax =0)
+ {
+  let nuevoResultado=[];
+  console.log(valormin);
+  console.log(valormax);
+    switch (tipoBusqueda) {
+      case "Precio":
+          nuevoResultado=arreglo.filter((juego) =>juego.precio >=valormin && juego.precio <=valormax );
+        break;
+      case "1":
+          nuevoResultado =1;
+      default:
+        break;
+    }
+    return nuevoResultado;
+ }  
+ function LimpiarJuegos ()
+ {
+      
+  let contJuegos = document.querySelector('.contenedorJuegos');
+  let hijos =contJuegos.lastElementChild;
+  let cont = 0 ;
+  while(hijos)
+  {
+    contJuegos.removeChild(hijos);
+    hijos = contJuegos.lastElementChild;
+  }
+ }
+
+
   

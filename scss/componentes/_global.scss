@@ -12,6 +12,7 @@ body {
     line-height: 1.8;
     margin: 0 0 0 0;
     background-color: #212020;
+    font-family: "Kdam Thmor Pro", sans-serif;
 }
 p {
     //color: var.$negro;
@@ -39,16 +40,22 @@ picture {
     border-radius: 20px 20px 0 0 ;
 }
 h1 {
-    font-size: 3rem;
+    font-size: 5rem;
     margin-top: 0;
 }
 h2 {
     font-size: 3.4rem;
 }
 h3 {
-    font-size: 3rem;
+    font-size: 2rem;
+    color: white;
 }
-
+lavel
+{
+    color: white;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    padding: 1.5rem;
+}
 //utilidad 
 .content 
 {
