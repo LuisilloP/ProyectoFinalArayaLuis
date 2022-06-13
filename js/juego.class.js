@@ -8,6 +8,7 @@ export{Juego};
       this.plataforma = plataforma;
       this.stock = stock;
     }
+    
     descontarStock(venta)
     {
         // if(this.stock<=0)

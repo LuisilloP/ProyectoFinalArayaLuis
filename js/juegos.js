@@ -68,34 +68,41 @@ Destacador();
   btnComprar.addEventListener("click",()=>
   {
     let total =0;
-    let nombreJuego ="";
+    let arregloMomentanio=[];
     //alert("estas comprando");
     const compras = document.querySelectorAll('.contenedorJuego.seleccionado .id input ');
     const stock = document.querySelectorAll('.contenedorJuego.seleccionado .txtContenedor .content .stock');
-    for(let i=0 ;i<compras.length;i++)
+
+    const confirmador = confirm("Esta seguro de su compra ?");
+    if(!confirmador)
     {
-      
-       arregloJuegos.forEach((juegoi)=>
-       {
-        if(juegoi.id==compras[i].value)
+      alert("No se realizara la compra...");
+    }else
+    {
+      alert("Felicidades Por su Compra");
+      for(let i=0 ;i<compras.length;i++)
+      {
+        arregloJuegos.forEach((juegoi)=>
         {
-            juegoi.stock==0?stock[i].innerHTML="Agotado":(total+=juegoi.precio,nombreJuego+=" "+juegoi.nombre,
-             stock[i].innerHTML=juegoi.descontarStock(1),
-             juegoi.stock==0?stock[i].innerHTML="Agotado":""
-             );
-          console.log(juegoi.stock);  
-        }
-       });
+          if(juegoi.id==compras[i].value)
+          {
+              juegoi.stock==0?stock[i].innerHTML="Agotado":(total+=juegoi.precio,arregloMomentanio.push(juegoi.nombre+" :"+juegoi.precio),
+              stock[i].innerHTML=juegoi.descontarStock(1),
+              juegoi.stock==0?stock[i].innerHTML="Agotado":""
+              );
+            console.log(juegoi.stock);  
+          }
+        });
+      }
+    const arregloFinal = arregloMomentanio.join("\n");
+    alert("Los items fueron:\n\n"+arregloFinal+"\nLa totalidad es: "+total);
     }
-    //debugger;
-    total==0?alert("No puede Seleccionar esto"):alert("su total es de $"+total+"  "+nombreJuego);
  }); 
 
  const btnBuscar = document.getElementById("botonBuscar");
 
  btnBuscar.addEventListener("click",()=>
  {
-  
     LimpiarJuegos();
     const buscaMenor = document.querySelector("#inputValorBuscarMenor").value;
     const buscaMayor = document.querySelector("#inputValorBuscarMayor").value;
@@ -113,8 +120,6 @@ Destacador();
  function BuscarPorArreglo(tipoBusqueda,arreglo,valormin=0,valormax =0)
  {
   let nuevoResultado=[];
-  console.log(valormin);
-  console.log(valormax);
     switch (tipoBusqueda) {
       case "Precio":
           nuevoResultado=arreglo.filter((juego) =>juego.precio >=valormin && juego.precio <=valormax );
@@ -127,11 +132,9 @@ Destacador();
     return nuevoResultado;
  }  
  function LimpiarJuegos ()
- {
-      
+ {  
   let contJuegos = document.querySelector('.contenedorJuegos');
   let hijos =contJuegos.lastElementChild;
-  let cont = 0 ;
   while(hijos)
   {
     contJuegos.removeChild(hijos);
