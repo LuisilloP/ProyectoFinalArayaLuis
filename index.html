@@ -31,15 +31,15 @@
     </section>
     <div class="contenedor">
         <h1 id="titulo">Bienvenidos a la mejor tienda de juegos Digitales</h1>
-        
-        <div class="buscadorPrimigenio">
-            <h3>Buscador Por Valor de Precio menor a Mayor</h3>
-            <div><lavel>Menor</lavel><input type="text" id ="inputValorBuscarMenor"/>
-            <lavel>Mayor</lavel><input type="text" id ="inputValorBuscarMayor"/></div>
-            <button type="submit" id='botonBuscar'  class="centrar boton">Buscar</button>
-        </div>
-        <div class="contenedorJuegos" id ="contenedorJuegos">
-
+        <div id="buscadorYjuego">
+            <div class="buscadorPrimigenio">
+                <h3>Filtro</h3>
+                <div class="radio-filter"></div>
+                <div class="Buscador-Precio"><lavel>Menor</lavel><input type="text" class="input-text" id ="inputValorBuscarMenor"/>
+                <lavel>Mayor</lavel><input type="text" class="input-text" id ="inputValorBuscarMayor"/>
+                <button type="submit" id='botonBuscar'  class="centrar boton">Buscar</button></div>
+            </div>
+            <div class="contenedorJuegos" id ="contenedorJuegos"></div>
         </div>
         <br>
         <button type="submit" id='botonComprar' class="centrar boton">Comprar</button>

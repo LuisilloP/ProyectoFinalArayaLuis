@@ -11,17 +11,7 @@ export{Juego};
     
     descontarStock(venta)
     {
-        // if(this.stock<=0)
-        // {
-        //   return "Agotado";
-        // }else
-        // {
-        //     this.stock=this.stock-venta;
-        // }
-        // return this.stock;
         let resultado = (this.stock<=0)?"Agotado":this.stock=this.stock-venta;
-        return resultado;
-       
-       
+        return resultado;   
     }
  }
