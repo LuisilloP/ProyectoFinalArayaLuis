@@ -1,4 +1,4 @@
-export { EstaCheck ,arregloActual};
+export { EstaCheck ,arregloActual,BuscaPorPalabra};
 import{arregloJuegos,CargaArreglo} from "./juegos";
 let arregloActual = [];
 function EstaCheck() {
@@ -32,3 +32,31 @@ function preparaDatos(plataforma, accion) {
         CargaArreglo(arregloActual);
     }
 } 
+const inputPalabraBuscar = document.querySelector("#inputNombre");
+let guardapalabra = "";
+
+async function BuscaPorPalabra(inputPalabraBuscar)
+{
+    
+
+     inputPalabraBuscar.addEventListener("input",async (e)=>
+    { 
+        guardapalabra = inputPalabraBuscar.value;
+        //console.log(guardapalabra)
+        let promesa = new Promise((resolve,reject)=>
+        {
+            
+
+            setTimeout(() => {
+                
+                resolve(inputPalabraBuscar.value)
+            }, 5000);
+        })
+        let resultado = await promesa;
+        console.log(guardapalabra);
+        console.log(resultado);
+    }) 
+    
+}
+
+BuscaPorPalabra(inputPalabraBuscar);

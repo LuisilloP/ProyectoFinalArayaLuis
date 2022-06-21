@@ -1,5 +1,5 @@
 import { Juego } from "./juego.class"; //importe de clase
-import { EstaCheck,arregloActual} from "./buscadorJuegos";
+import { EstaCheck,arregloActual,BuscaPorPalabra} from "./buscadorJuegos";
 export {arregloJuegos,CargaArreglo};
 const arregloJuegosPs4 = []; // creaccion de arreglos
 const arregloJuegosSwitch = [];
@@ -55,14 +55,13 @@ const CreaContenedorJuego = (arreglo) => {
   });
   return arreglo;
 }
-
-
 const CargaArreglo = (arregloActual) => {
-  console.log(arregloActual.length);
 
   if (arregloActual.length == 0) {
     LimpiarJuegos();
     CreaContenedorJuego(arregloJuegos);
+    console.log(arregloActual);
+   
   } else {
     LimpiarJuegos();
     CreaContenedorJuego(arregloActual);
@@ -83,6 +82,7 @@ function Destacador() {
 
 ///////////////////////////////////////////////
 const btnComprar = document.getElementById('botonComprar');
+
 btnComprar.addEventListener("click", () => {
 
   let total = 0;
@@ -90,13 +90,13 @@ btnComprar.addEventListener("click", () => {
   const compras = document.querySelectorAll('.contenedorJuego.seleccionado .id input ');
   const stock = document.querySelectorAll('.contenedorJuego.seleccionado .txtContenedor .content .stock');
   const confirmador = confirm("Esta seguro de su compra ?");
-
   if (!confirmador) {
     alert("No se realizara la compra...");
   } else {
     alert("Felicidades Por su Compra");
     for (let i = 0; i < compras.length; i++) {
-      arregloActual.forEach((juegoi) => {
+      console.log(arregloActual);
+      arregloJuegos.forEach((juegoi) => {
         if (juegoi.id == compras[i].value) {
           juegoi.stock == 0 ? stock[i].innerHTML = "Agotado" : (total += juegoi.precio, arregloMomentanio.push(juegoi.nombre + " :" + juegoi.precio),
             stock[i].innerHTML = juegoi.descontarStock(1),
@@ -140,16 +140,3 @@ function LimpiarJuegos() {
     hijos = contJuegos.lastElementChild;
   }
 }
-
-// function cargaFunciones ()
-// {
-//   creaArregloPS4();//iniciar arreglos
-//   crearArregloSwitch();
-//   crearArregloXbox();
- 
-//   CargaArreglo(arregloActual);
-//   Destacador();
-//   CargaRadioButons(arregloPlataformas);
-//   EstaCheck()
-// }
-// cargaFunciones();

@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Press+Start+2P&family=Roboto&display=swap");
+.buscadorPrimigenio {
+  color: white;
+}
+.buscadorPrimigenio .boxRadio {
+  display: flex;
+  margin-left: 1rem;
+}
+.buscadorPrimigenio .radio-class {
+  height: 1.7em;
+  width: 1.7rem;
+}
+.buscadorPrimigenio .input-text {
+  width: 80%;
+  height: 3.6rem;
+  border: 0.1px;
+  border-radius: 0.3rem;
+}
+.buscadorPrimigenio .Buscador-Precio {
+  display: none;
+}/*# sourceMappingURL=buscador.css.map */
