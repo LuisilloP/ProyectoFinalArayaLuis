@@ -20,43 +20,49 @@ function EstaCheck() {
     }
 }
 function preparaDatos(plataforma, accion) {
-    console.log(arregloActual);
     const arregloFiltrado = arregloJuegos.filter((juego) => juego.plataforma.includes(plataforma));
     if (accion == 1) {
-        arregloActual = arregloActual.concat(arregloFiltrado);
-        console.log(arregloActual);
+        arregloActual = arregloActual.concat(arregloFiltrado);    
         CargaArreglo(arregloActual);
     } else if (accion == 2) {
-        arregloActual = arregloActual.filter((juegoEliminar) => !juegoEliminar.plataforma.includes(plataforma));
-        console.log(arregloActual);
+        arregloActual = arregloActual.filter((juegoEliminar) => !juegoEliminar.plataforma.includes(plataforma)); 
         CargaArreglo(arregloActual);
     }
 } 
 const inputPalabraBuscar = document.querySelector("#inputNombre");
 let guardapalabra = "";
 
-async function BuscaPorPalabra(inputPalabraBuscar)
+function BuscaPorPalabra(Buscar)
 {
-    
-
-     inputPalabraBuscar.addEventListener("input",async (e)=>
+     Buscar.addEventListener("input",(e)=>
     { 
-        guardapalabra = inputPalabraBuscar.value;
-        //console.log(guardapalabra)
-        let promesa = new Promise((resolve,reject)=>
+        
+      if(Buscar.value)
+      {
+        console.log(Buscar.value); 
+        arregloActual = arregloJuegos.filter((juego) => juego.nombre.toLowerCase().includes(Buscar.value.toLowerCase().trim()));
+        if(arregloActual.length==0)
         {
-            
-
-            setTimeout(() => {
-                
-                resolve(inputPalabraBuscar.value)
-            }, 5000);
-        })
-        let resultado = await promesa;
-        console.log(guardapalabra);
-        console.log(resultado);
+            alert("No existen juegos con estas Caracteristicas")
+        }
+        CargaArreglo(arregloActual);
+      }else{
+        arregloActual = arregloJuegos;
+        CargaArreglo(arregloActual);
+        }
     }) 
-    
 }
 
-BuscaPorPalabra(inputPalabraBuscar);
+BuscaPorPalabra(inputPalabraBuscar)
+
+//console.log(guardapalabra)
+        // let promesa = new Promise((resolve,reject)=>
+        // {
+        //     setTimeout(() => {
+                
+        //         resolve(inputPalabraBuscar.value)
+        //     }, 5000);
+        // })
+        // let resultado = await promesa;
+        
+        // console.log(resultado);
