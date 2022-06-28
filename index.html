@@ -1,74 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="/main.js"></script>
     <title>Vite App</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <section class="portadaImg">
-    <div>
-        <header>
-            <h1 class="tituloNav">
-                <a href="https://www.google.com/">GamerShop</a>
-            </h1>
-            <button class="boton-svg">
-                <svg class="svg" fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"/></svg>
-            </button>
-            <nav class="nav">
-                <ul class="ul">
-                    <li class="li"><a href="#" class="a">Agregar Producto</a></li>
-                    <li class="li"><a href="#" class="a">Nosotros</a></li>
-                    <li class="li"><a href="#" class="a">Mas vendidos</a></li>
-                    <li class="li"><a href="#" class="a">Ofertas</a></li>
-                    <li class="li"><a href="#" class="a">No hagas click</a></li>
-                </ul>
-            </nav>
-        </header>
-    </div>
+        <div>
+            <header>
+                <h1 class="tituloNav">
+                    <a href="https://www.google.com/">GamerShop</a>
+                </h1>
+                <button class="boton-svg">
+                    <svg class="svg" fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px"
+                        height="24px">
+                        <path
+                            d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z" />
+                    </svg>
+                </button>
+                <nav class="nav">
+                    <ul class="ul">
+                        <li class="li"><a href="#" class="a">Agregar Producto</a></li>
+                        <li class="li"><a href="#" class="a">Nosotros</a></li>
+                        <li class="li"><a href="#" class="a">Mas vendidos</a></li>
+                        <li class="li"><a href="#" class="a">Ofertas</a></li>
+                        <li class="li"><a href="#" class="a">No hagas click</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
     </section>
     <div class="contenedor">
         <h1 id="titulo">Bienvenidos a la mejor tienda de juegos Digitales</h1>
         <div id="buscadorYjuego">
             <div class="buscadorPrimigenio">
                 <h2>Filtro</h2>
-                <div class="nombre-filter"> <label for="inputNombre"><h3>Nombre</h3></label>
-                <input type="text" id ="inputNombre" class="input-text"/>
+                <div class="nombre-filter"> <label for="inputNombre">
+                        <h3>Nombre</h3>
+                    </label>
+                    <input type="text" id="inputNombre" class="input-text" />
                 </div>
-                <div class="radio-filter"><h3>Categoria</h3></div>
+                <div class="radio-filter">
+                    <h3>Categoria</h3>
+                </div>
 
-                <div class="Buscador-Precio"><lavel>Menor</lavel><input type="text" class="input-text" id ="inputValorBuscarMenor"/>
-                <lavel>Mayor</lavel><input type="text" class="input-text" id ="inputValorBuscarMayor"/>
-                <button type="submit" id='botonBuscar'  class="centrar boton">Buscar</button></div>
+                <div class="Buscador-Precio">
+                    <lavel>Menor</lavel><input type="text" class="input-text" id="inputValorBuscarMenor" />
+                    <lavel>Mayor</lavel><input type="text" class="input-text" id="inputValorBuscarMayor" />
+                    <button type="submit" id='botonBuscar' class="centrar boton">Buscar</button>
+                </div>
             </div>
-            <div class="contenedorJuegos" id ="contenedorJuegos"></div>
+            <div class="contenedorJuegos" id="contenedorJuegos"></div>
         </div>
         <br>
-        <button type="submit" id='botonComprar' class="centrar boton">Comprar</button>
-    </div>
-    <div class="fondo-carrito">
-        <div><button class="btn-cierra-carrito">X</button></div>
-        <div class="contenedorCarrito">
-        <table class="tabla-carrito">  
-            <thead>
-                <th class="th_carrito">Imagen</th>
-                <th class="th_carrito">Nombre</th>
-                <th class="th_carrito">Unidades</th>
-                <th class="th_carrito">Precio</th>
-                <th class="th_carrito">Quitar</th>
-            </thead>
-            <tbody class="tbody-carrito">
-                
-            </tbody>
-        </table>      
+        <div class="fondo-carrito">
+            <div><button class="btn-cierra-carrito">X</button></div>
+            <div class="contenedorCarrito">
+                <table class="tabla-carrito">
+                    <thead>
+                        <th class="th_carrito">Imagen</th>
+                        <th class="th_carrito">Nombre</th>
+                        <th class="th_carrito">Unidades</th>
+                        <th class="th_carrito">Precio</th>
+                        <th class="th_carrito">Quitar</th>
+                    </thead>
+                    <tbody class="tbody-carrito"></tbody>
+                </table>
+                <div class="btn_compraCarrito"> <button type="submit" id='botonComprar'
+                        class="centrar boton">Comprar</button></div>
+            </div>
+            
         </div>
-    <button class="btn-carrito">
-    <svg xmlns="http://www.w3.org/2000/svg"  version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class="icono-carrito"><g><path xmlns="http://www.w3.org/2000/svg" d="m2 3h3.208l3.535 15.026a2.992 2.992 0 0 0 .257 5.974h17a1 1 0 0 0 0-2h-17a1 1 0 0 1 0-2h16.882a2.99 2.99 0 0 0 2.92-2.313l2.119-9a3 3 0 0 0 -2.921-3.687h-20.267l-.759-3.229a1 1 0 0 0 -.974-.771h-4a1 1 0 0 0 0 2zm26 4a1.016 1.016 0 0 1 .974 1.229l-2.12 9a.994.994 0 0 1 -.972.771h-15.09l-2.592-11z" fill="#fff" data-original="#000000" class=""></path><path xmlns="http://www.w3.org/2000/svg" d="m20 28a3 3 0 1 0 3-3 3 3 0 0 0 -3 3zm4 0a1 1 0 1 1 -1-1 1 1 0 0 1 1 1z" fill="#fff" data-original="#000000" class=""></path><path xmlns="http://www.w3.org/2000/svg" d="m9 28a3 3 0 1 0 3-3 3 3 0 0 0 -3 3zm4 0a1 1 0 1 1 -1-1 1 1 0 0 1 1 1z" fill="#fff" data-original="#000000" class=""></path></g></svg>
-    </button>
+        <div class="div-btn-carrito">
+            <button class="btn-carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 32 32"
+                    style="enable-background:new 0 0 512 512" xml:space="preserve" class="icono-carrito">
+                    <g>
+                        <path xmlns="http://www.w3.org/2000/svg"
+                            d="m2 3h3.208l3.535 15.026a2.992 2.992 0 0 0 .257 5.974h17a1 1 0 0 0 0-2h-17a1 1 0 0 1 0-2h16.882a2.99 2.99 0 0 0 2.92-2.313l2.119-9a3 3 0 0 0 -2.921-3.687h-20.267l-.759-3.229a1 1 0 0 0 -.974-.771h-4a1 1 0 0 0 0 2zm26 4a1.016 1.016 0 0 1 .974 1.229l-2.12 9a.994.994 0 0 1 -.972.771h-15.09l-2.592-11z"
+                            fill="#fff" data-original="#000000" class=""></path>
+                        <path xmlns="http://www.w3.org/2000/svg"
+                            d="m20 28a3 3 0 1 0 3-3 3 3 0 0 0 -3 3zm4 0a1 1 0 1 1 -1-1 1 1 0 0 1 1 1z" fill="#fff"
+                            data-original="#000000" class=""></path>
+                        <path xmlns="http://www.w3.org/2000/svg"
+                            d="m9 28a3 3 0 1 0 3-3 3 3 0 0 0 -3 3zm4 0a1 1 0 1 1 -1-1 1 1 0 0 1 1 1z" fill="#fff"
+                            data-original="#000000" class=""></path>
+                    </g>
+                </svg>
+            </button>
+        </div>
     </div>
-   <footer>
-   </footer>
+   
+    <footer>
+    </footer>
 </body>
+
 </html>

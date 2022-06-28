@@ -24,23 +24,30 @@ function preparaDatos(plataforma, accion) {
     if (accion == 1) {
         arregloActual = arregloActual.concat(arregloFiltrado);    
         CargaArreglo(arregloActual);
+        
     } else if (accion == 2) {
         arregloActual = arregloActual.filter((juegoEliminar) => !juegoEliminar.plataforma.includes(plataforma)); 
         CargaArreglo(arregloActual);
     }
 } 
 const inputPalabraBuscar = document.querySelector("#inputNombre");
-let guardapalabra = "";
 
+console.log("aca 2")
 function BuscaPorPalabra(Buscar)
 {
+    if(arregloActual,length ===0)
+    {
+     
+    }
      Buscar.addEventListener("input",(e)=>
     { 
+        CargaArreglo(arregloActual);
         
       if(Buscar.value)
       {
         console.log(Buscar.value); 
-        arregloActual = arregloJuegos.filter((juego) => juego.nombre.toLowerCase().includes(Buscar.value.toLowerCase().trim()));
+        arregloActual = arregloActual.filter((juego) => juego.nombre.toLowerCase().includes(Buscar.value.toLowerCase().trim()));
+        console.log(arregloActual)
         if(arregloActual.length==0)
         {
             alert("No existen juegos con estas Caracteristicas")
@@ -49,6 +56,7 @@ function BuscaPorPalabra(Buscar)
       }else{
         arregloActual = arregloJuegos;
         CargaArreglo(arregloActual);
+        
         }
     }) 
 }

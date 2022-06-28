@@ -13,12 +13,12 @@ btnCarrito.addEventListener("click",()=>
 {
     FondoCarrito.classList.add("transition")
     FondoCarrito.classList.toggle("active");
+    btnCarrito.classList.add("desactivoBtnCarrito");
 });
 btnCierraCarrito.addEventListener("click",()=>
 {
     FondoCarrito.classList.remove("active");
-    //FondoCarrito.classList.remove("transition");
-    
+    btnCarrito.classList.remove("desactivoBtnCarrito");
 })
 window.addEventListener("scroll",()=>
 {

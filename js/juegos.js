@@ -6,7 +6,7 @@ const arregloJuegosPs4 = []; // creaccion de arreglos
 const arregloJuegosSwitch = [];
 const arregloXbox = []
 const arregloPlataformas = ["PS4", "Nintendo Switch", "Xbox"];
-const arregloCarrito = [];
+let arregloCarrito = [];
 const creaArregloPS4 = () => { // poblar arreglos
   const juegodbz = new Juego(0, "God of War", "./Img/ps4/godJuego.jpg", 50000, arregloPlataformas[0], 100);
   const juegogta = new Juego(1, "GTA V", "./Img/ps4/gtaJuego.jpg", 40000, arregloPlataformas[0], 200);
@@ -32,6 +32,7 @@ const crearArregloXbox = () => {// poblar arreglos
 creaArregloPS4();//iniciar arreglos
 crearArregloSwitch();
 crearArregloXbox();
+let carritoJson;
 let arregloJuegos = arregloJuegosPs4.concat(arregloJuegosSwitch);
 arregloJuegos = arregloJuegos.concat(arregloXbox);
 const CreaContenedorJuego = (arreglo) => {
@@ -58,59 +59,51 @@ const CreaContenedorJuego = (arreglo) => {
   return arreglo;
 }
 const CargaArreglo = (arregloActual) => {
-
+  LimpiarJuegos();
   if (arregloActual.length == 0) {
-    LimpiarJuegos();
-    CreaContenedorJuego(arregloJuegos);
+    arregloActual = CreaContenedorJuego(arregloJuegos);
     console.log(arregloActual);
 
   } else {
-    LimpiarJuegos();
     CreaContenedorJuego(arregloActual);
   }
-  Destacador();
 };
 CargaArreglo(arregloActual);
+const inputPalabraBuscar = document.querySelector("#inputNombre");
 
-function Destacador() {
-  const cJuego = document.querySelectorAll('.contenedorJuego');
-  for (let i = 0; i < cJuego.length; i++) {
-    cJuego[i].addEventListener("click", function () {
-      cJuego[i].classList.toggle("seleccionado");
-      //console.log(cJuego[i])
+BuscaPorPalabra(inputPalabraBuscar)
 
-    });
-  }
-}
-
-///////////////////////////////////////////////
 const btnComprar = document.getElementById('botonComprar');
 
 btnComprar.addEventListener("click", () => {
-
-  let total = 0;
-  let arregloMomentanio = [];
-  const compras = document.querySelectorAll('.contenedorJuego.seleccionado .id input ');
-  const stock = document.querySelectorAll('.contenedorJuego.seleccionado .txtContenedor .content .stock');
-  const confirmador = confirm("Esta seguro de su compra ?");
-  if (!confirmador) {
-    alert("No se realizara la compra...");
-  } else {
-    alert("Felicidades Por su Compra");
-    for (let i = 0; i < compras.length; i++) {
-      console.log(arregloActual);
-      arregloJuegos.forEach((juegoi) => {
-        if (juegoi.id == compras[i].value) {
-          juegoi.stock == 0 ? stock[i].innerHTML = "Agotado" : (total += juegoi.precio, arregloMomentanio.push(juegoi.nombre + " :" + juegoi.precio),
-            stock[i].innerHTML = juegoi.descontarStock(1),
-            juegoi.stock == 0 ? stock[i].innerHTML = "Agotado" : ""
-          );
-          console.log(juegoi.stock);
-        }
-      });
-    }
-    const arregloFinal = arregloMomentanio.join("\n");
-    alert("Los items fueron:\n\n" + arregloFinal + "\nLa totalidad es: " + total);
+  
+  if(arregloCarrito.length==0)
+  {
+    alert("no hay nada en carro");
+  }else
+  {
+    
+    let mensaje ="";
+    let total = 0;
+    arregloCarrito.forEach(Juego => {
+       mensaje += `Juego: ${Juego.nombre} Precio: $${Juego.precio} X ${Juego.cantidad}\n`;
+       total += Juego.precio*Juego.cantidad;
+       arregloJuegos.find(idCont=>
+       {
+        
+        if(idCont.id ==Juego.id)
+        idCont.stock =idCont.stock-Juego.cantidad;
+          //console.log(idCont.stock);
+          
+       })
+       console.log(arregloJuegos[Juego.id].stock);
+    });
+    
+    mensaje += `\n Su total es de $${total} gracias por su compra`;
+   
+    CargaArreglo(arregloActual)
+    //alert(mensaje);
+    //alert("no se eliminara el carrito local actual ")
   }
 });
 
@@ -145,14 +138,16 @@ function LimpiarJuegos() {
 }
 function agregaACarrito() {
   const cJuego = document.querySelectorAll('.contenedorJuego');
- 
+  console.log(cJuego.length)
   for (let i = 0; i < cJuego.length; i++) {
     cJuego[i].addEventListener("dblclick", function () {
-
+      console.log("hola");
       let cantCarritoMod = document.querySelectorAll('.cantidad-carritoMod');
       let idCarrito = document.querySelectorAll('.id-carrito input');
       arregloJuegos.forEach((juegoi) => {
+        console.log("hola")
         if (juegoi.id == cJuego[i].querySelector('.id input ').value) {
+          console.log("hola")
           let ElementoCarrito = new Carrito(juegoi.id, juegoi.nombre, juegoi.precio, 1, juegoi.img);
           if (arregloCarrito.length == 0) {
           
@@ -174,21 +169,49 @@ function agregaACarrito() {
             for(let e = 0 ;e<arregloCarrito.length;e++)
             {
               if(ElementoCarrito.id ==idCarrito[e].value)
-              {
-                
+              {               
+                arregloCarrito[e]["cantidad"] = arregloCarrito[e]["cantidad"]+1
                 cantCarritoMod[e].innerHTML = parseInt(cantCarritoMod[e].innerHTML)+1;
+                console.log(arregloCarrito[e]["cantidad"]);
+                
               }
+              
             }
            }
           }
 
         }
       })
-
+      console.log(arregloCarrito);
+      carritoJson = JSON.stringify(arregloCarrito);
+      localStorage.setItem("carrito",carritoJson);
     });
   }
+ 
+  
 }
 agregaACarrito();
+
+const preCarga = () =>  
+{
+
+  const carritoJso = localStorage.getItem("carrito");
+  const newCarrito = JSON.parse(carritoJso);
+
+  if(newCarrito ===null)
+  {
+    console.log("wit");
+  }else
+  {
+    arregloCarrito = newCarrito;
+    newCarrito.forEach(juegoCarrito => {
+      cargaHtmlCarrito(juegoCarrito);
+    });
+  }
+ 
+  
+}
+preCarga();
 function cargaHtmlCarrito(ElementoCarrito) {
   const Tabla = document.querySelector('.tbody-carrito');
 
@@ -201,7 +224,7 @@ function cargaHtmlCarrito(ElementoCarrito) {
       <div class="id-carrito"><input type ="hidden" value =${ElementoCarrito.id}></div>
       `
   const contenedor = document.createElement('tr');
+  contenedor.classList.add("JuegoCarrito")
   contenedor.innerHTML = contenidoCarrito;
   Tabla.appendChild(contenedor);
-
 }
