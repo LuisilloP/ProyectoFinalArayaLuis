@@ -102,8 +102,8 @@ btnComprar.addEventListener("click", () => {
     mensaje += `\n Su total es de $${total} gracias por su compra`;
    
     CargaArreglo(arregloActual)
-    //alert(mensaje);
-    //alert("no se eliminara el carrito local actual ")
+    alert(mensaje);
+    alert("no se eliminara el carrito local actual ")
   }
 });
 
