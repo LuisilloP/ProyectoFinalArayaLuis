@@ -1,6 +1,6 @@
 import { Juego } from "./juego.class"; //importe de clase
 import { Carrito } from "./carrito.class";
-import { EstaCheck, arregloActual, BuscaPorPalabra } from "./buscadorJuegos";
+import { EstaCheck, arregloActual } from "./buscadorJuegos";
 export { arregloJuegos, CargaArreglo };
 const arregloJuegosPs4 = []; // creaccion de arreglos
 const arregloJuegosSwitch = [];
@@ -58,96 +58,18 @@ const CreaContenedorJuego = (arreglo) => {
   });
   return arreglo;
 }
-const CargaArreglo = (arregloActual) => {
-  LimpiarJuegos();
-  if (arregloActual.length == 0) {
-    arregloActual = CreaContenedorJuego(arregloJuegos);
-    console.log(arregloActual);
-
-  } else {
-    CreaContenedorJuego(arregloActual);
-  }
-};
-CargaArreglo(arregloActual);
-const inputPalabraBuscar = document.querySelector("#inputNombre");
-
-BuscaPorPalabra(inputPalabraBuscar)
-
-const btnComprar = document.getElementById('botonComprar');
-
-btnComprar.addEventListener("click", () => {
-  
-  if(arregloCarrito.length==0)
-  {
-    alert("no hay nada en carro");
-  }else
-  {
-    
-    let mensaje ="";
-    let total = 0;
-    arregloCarrito.forEach(Juego => {
-       mensaje += `Juego: ${Juego.nombre} Precio: $${Juego.precio} X ${Juego.cantidad}\n`;
-       total += Juego.precio*Juego.cantidad;
-       arregloJuegos.find(idCont=>
-       {
-        
-        if(idCont.id ==Juego.id)
-        idCont.stock =idCont.stock-Juego.cantidad;
-          //console.log(idCont.stock);
-          
-       })
-       console.log(arregloJuegos[Juego.id].stock);
-    });
-    
-    mensaje += `\n Su total es de $${total} gracias por su compra`;
-   
-    CargaArreglo(arregloActual)
-    alert(mensaje);
-    alert("no se eliminara el carrito local actual ")
-  }
-});
-
-const CargaRadioButons = (arregloPlataformas) => {
-  let contenedorRadio = document.querySelector(".radio-filter");
-  arregloPlataformas.forEach((tipoPlataforma) => {
-    const createDiv = document.createElement("DIV");
-    const createInput = document.createElement("input");
-    const createlabel = document.createElement("label");
-    createInput.type = "checkbox";
-    createDiv.classList.add("boxRadio");
-    createInput.classList.add("radio-class");
-    createInput.value = tipoPlataforma;
-    createlabel.textContent = tipoPlataforma;
-    createDiv.appendChild(createInput);
-    createDiv.appendChild(createlabel);
-    contenedorRadio.appendChild(createDiv);
-
-  })
-}
-CargaRadioButons(arregloPlataformas);
-
-EstaCheck()
-
-function LimpiarJuegos() {
-  let contJuegos = document.querySelector('.contenedorJuegos');
-  let hijos = contJuegos.lastElementChild;
-  while (hijos) {
-    contJuegos.removeChild(hijos);
-    hijos = contJuegos.lastElementChild;
-  }
-}
 function agregaACarrito() {
+
   const cJuego = document.querySelectorAll('.contenedorJuego');
-  console.log(cJuego.length)
   for (let i = 0; i < cJuego.length; i++) {
     cJuego[i].addEventListener("dblclick", function () {
-      console.log("hola");
+
       let cantCarritoMod = document.querySelectorAll('.cantidad-carritoMod');
       let idCarrito = document.querySelectorAll('.id-carrito input');
       arregloJuegos.forEach((juegoi) => {
-        console.log("hola")
+
         if (juegoi.id == cJuego[i].querySelector('.id input ').value) {
-          console.log("hola")
+
           let ElementoCarrito = new Carrito(juegoi.id, juegoi.nombre, juegoi.precio, 1, juegoi.img);
           if (arregloCarrito.length == 0) {
           
@@ -190,7 +112,92 @@ function agregaACarrito() {
  
   
 }
-agregaACarrito();
+const CargaArreglo = (arregloActual) => {
+  LimpiarJuegos();
+  if (arregloActual.length == 0) {
+    arregloActual = CreaContenedorJuego(arregloJuegos);
+    agregaACarrito();
+    //console.log(arregloActual);
+
+  } else {
+    CreaContenedorJuego(arregloActual);
+    agregaACarrito();
+  }
+};
+CargaArreglo(arregloActual);
+
+const btnComprar = document.getElementById('botonComprar');
+
+btnComprar.addEventListener("click", () => {
+  
+  if(arregloCarrito.length==0)
+  {
+    alert("no hay nada en carro");
+  }else
+  {
+    
+    let mensaje ="";
+    let total = 0;
+    arregloCarrito.forEach(Juego => {
+       mensaje += `Juego: ${Juego.nombre} Precio: $${Juego.precio} X ${Juego.cantidad}\n`;
+       total += Juego.precio*Juego.cantidad;
+       arregloJuegos.find(idCont=>
+       {
+        
+        if(idCont.id ==Juego.id)
+        idCont.stock =idCont.stock-Juego.cantidad;
+          //console.log(idCont.stock);
+          
+       })
+       console.log(arregloJuegos[Juego.id].stock);
+    });
+    
+    mensaje += `\n Su total es de $${total} gracias por su compra`;
+   
+    CargaArreglo(arregloActual)
+    alert(mensaje);
+    alert("no se eliminara el carrito local actual ")
+
+
+    // let tbody=document.querySelector(".tbody-carrito");
+    // console.log(tbody.firstChild);
+    // while (tbody.firstChild)
+    // {
+    //   tbody.removeChild(tbody.firstChild)
+    // }
+    location.reload();
+  }
+});
+
+const CargaRadioButons = (arregloPlataformas) => {
+  let contenedorRadio = document.querySelector(".radio-filter");
+  arregloPlataformas.forEach((tipoPlataforma) => {
+    const createDiv = document.createElement("DIV");
+    const createInput = document.createElement("input");
+    const createlabel = document.createElement("label");
+    createInput.type = "checkbox";
+    createDiv.classList.add("boxRadio");
+    createInput.classList.add("radio-class");
+    createInput.value = tipoPlataforma;
+    createlabel.textContent = tipoPlataforma;
+    createDiv.appendChild(createInput);
+    createDiv.appendChild(createlabel);
+    contenedorRadio.appendChild(createDiv);
+
+  })
+}
+CargaRadioButons(arregloPlataformas);
+
+EstaCheck()
+
+function LimpiarJuegos() {
+  let contJuegos = document.querySelector('.contenedorJuegos');
+  let hijos = contJuegos.lastElementChild;
+  while (hijos) {
+    contJuegos.removeChild(hijos);
+    hijos = contJuegos.lastElementChild;
+  }
+}
 
 const preCarga = () =>  
 {
@@ -200,18 +207,27 @@ const preCarga = () =>
 
   if(newCarrito ===null)
   {
-    console.log("wit");
+    console.log("no hay nada en almacenamiento local");
   }else
   {
     arregloCarrito = newCarrito;
     newCarrito.forEach(juegoCarrito => {
       cargaHtmlCarrito(juegoCarrito);
     });
-  }
- 
-  
+  } 
 }
 preCarga();
+const BtnJuegoAEliminar = document.querySelectorAll('.EliminaJuegoCarrito');
+let idCarrito = document.querySelectorAll('.id-carrito input');
+const  EliminaJuegoCarrito = () => 
+{
+  for (let i = 0;i<BtnJuegoAEliminar.length;i++)
+  {
+    BtnJuegoAEliminar[i].addEventListener('click',()=>{alert("hola desde y la id es "+idCarrito[i].value)})
+  }
+}
+EliminaJuegoCarrito();
+
 function cargaHtmlCarrito(ElementoCarrito) {
   const Tabla = document.querySelector('.tbody-carrito');
 
@@ -220,7 +236,7 @@ function cargaHtmlCarrito(ElementoCarrito) {
       <td>${ElementoCarrito.nombre}</td>
       <td class="cantidad-carritoMod">${ElementoCarrito.cantidad}</td>
       <td>${ElementoCarrito.precio}</td>
-      <td>Eliminar</td>
+      <td ><a class ="EliminaJuegoCarrito" >Eliminar</a></td>
       <div class="id-carrito"><input type ="hidden" value =${ElementoCarrito.id}></div>
       `
   const contenedor = document.createElement('tr');

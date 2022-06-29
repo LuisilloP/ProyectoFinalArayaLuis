@@ -15,7 +15,7 @@
     top: 7rem;
     transform: translateX(380%);
     opacity: 1;
-
+    padding-right: 1rem;
 
     &.transition.active {
         transition: ease 2s;
@@ -61,6 +61,15 @@
 
             .th_carrito {
                 margin-left: 1;
+            }
+            .EliminaJuegoCarrito
+            {
+                transition: ease-in-out 1s ;
+                &:hover
+                {
+                    cursor: pointer;
+                    color: rgb(162, 0, 0);
+                }
             }
         }
     }

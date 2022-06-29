@@ -1,4 +1,4 @@
-export { EstaCheck ,arregloActual,BuscaPorPalabra};
+export { EstaCheck ,arregloActual};
 import{arregloJuegos,CargaArreglo} from "./juegos";
 let arregloActual = [];
 function EstaCheck() {
@@ -18,6 +18,7 @@ function EstaCheck() {
             }
         })
     }
+   
 }
 function preparaDatos(plataforma, accion) {
     const arregloFiltrado = arregloJuegos.filter((juego) => juego.plataforma.includes(plataforma));
@@ -32,22 +33,19 @@ function preparaDatos(plataforma, accion) {
 } 
 const inputPalabraBuscar = document.querySelector("#inputNombre");
 
-console.log("aca 2")
-function BuscaPorPalabra(Buscar)
-{
-    if(arregloActual,length ===0)
-    {
-     
-    }
-     Buscar.addEventListener("input",(e)=>
+
+
+ 
+inputPalabraBuscar.addEventListener("input",(e)=>
     { 
+        console.log(arregloActual)
         CargaArreglo(arregloActual);
         
-      if(Buscar.value)
+      if(inputPalabraBuscar.value)
       {
-        console.log(Buscar.value); 
-        arregloActual = arregloActual.filter((juego) => juego.nombre.toLowerCase().includes(Buscar.value.toLowerCase().trim()));
-        console.log(arregloActual)
+      
+        arregloActual = arregloActual.filter((juego) => juego.nombre.toLowerCase().includes(inputPalabraBuscar.value.toLowerCase().trim()));
+      
         if(arregloActual.length==0)
         {
             alert("No existen juegos con estas Caracteristicas")
@@ -59,9 +57,7 @@ function BuscaPorPalabra(Buscar)
         
         }
     }) 
-}
 
-BuscaPorPalabra(inputPalabraBuscar)
 
 //console.log(guardapalabra)
         // let promesa = new Promise((resolve,reject)=>
