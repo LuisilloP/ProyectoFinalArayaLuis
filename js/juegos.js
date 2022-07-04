@@ -1,42 +1,12 @@
-import { Juego } from "./juego.class"; //importe de clase
+import { arregloJuegos,arregloPlataformas } from "./baseDatosJuegos";
 import { Carrito } from "./carrito.class";
 import { EstaCheck, arregloActual } from "./buscadorJuegos";
-export { arregloJuegos, CargaArreglo };
-const arregloJuegosPs4 = []; // creaccion de arreglos
-const arregloJuegosSwitch = [];
-const arregloXbox = []
-const arregloPlataformas = ["PS4", "Nintendo Switch", "Xbox"];
+export { arregloJuegos, CargaArreglo,arregloPlataformas};
+
 let arregloCarrito = [];
-const creaArregloPS4 = () => { // poblar arreglos
-  const juegodbz = new Juego(0, "God of War", "./Img/ps4/godJuego.jpg", 50000, arregloPlataformas[0], 100);
-  const juegogta = new Juego(1, "GTA V", "./Img/ps4/gtaJuego.jpg", 40000, arregloPlataformas[0], 200);
-  const juegounc = new Juego(2, "Uncharted", "./Img/ps4/unchar.png", 30000, arregloPlataformas[0], 100);
-  const juegogod = new Juego(3, "Dragon Ball kakarot", "./Img/ps4/dbzJuego.jpg", 30000, arregloPlataformas[0], 100);
-  arregloJuegosPs4.push(juegodbz, juegogta, juegounc, juegogod);
-  JSON.stringify(arregloJuegosPs4);
-}
-const crearArregloSwitch = () => {// poblar arreglos
-  const juegomarioOdyssey = new Juego(4, "Super Mario Odyssey", "./Img/nintendoSwitch/marioO.jpg", 10000, arregloPlataformas[1], 100);
-  const juegoSmash = new Juego(5, "Super Smash Ultimate", "./Img/nintendoSwitch/superSmash.jpg", 70000, arregloPlataformas[1], 100);
-  const juegoPokemonPika = new Juego(6, "Pokemon let's Go Pikachu", "./Img/nintendoSwitch/pokemonPika.jpg", 15000, arregloPlataformas[1], 200);
-  const juegozelda = new Juego(7, "Zelda Breath of the wild", "./Img/nintendoSwitch/zelda.jpg", 50000, arregloPlataformas[1], 100);
 
-  arregloJuegosSwitch.push(juegomarioOdyssey, juegoSmash, juegoPokemonPika, juegozelda);
-}
-const crearArregloXbox = () => {// poblar arreglos
-  const halo = new Juego(8, "Halo 5", "./Img/xbox/xbox.jpg", 35000, arregloPlataformas[2], 200);
-  const minecraft = new Juego(9, "Minecraft", "./Img/xbox/minecraft.jpg", 20000, arregloPlataformas[2], 100);
-  arregloXbox.push(halo, minecraft);
-}
-
-creaArregloPS4();//iniciar arreglos
-crearArregloSwitch();
-crearArregloXbox();
-let carritoJson;
-let arregloJuegos = arregloJuegosPs4.concat(arregloJuegosSwitch);
-arregloJuegos = arregloJuegos.concat(arregloXbox);
 const CreaContenedorJuego = (arreglo) => {
-  const contenedorJuegos = document.getElementById('contenedorJuegos');
+  const contenedorJuegos = document.querySelector('#contenedorJuegos');
   arreglo.forEach(juego => {
     let contenidoJuego = `
         <img src="${juego['img']}" class="img">
@@ -58,116 +28,99 @@ const CreaContenedorJuego = (arreglo) => {
   });
   return arreglo;
 }
-function agregaACarrito() {
 
+function agregaACarrito() {
   const cJuego = document.querySelectorAll('.contenedorJuego');
   for (let i = 0; i < cJuego.length; i++) {
     cJuego[i].addEventListener("dblclick", function () {
-
-      let cantCarritoMod = document.querySelectorAll('.cantidad-carritoMod');
-      let idCarrito = document.querySelectorAll('.id-carrito input');
       arregloJuegos.forEach((juegoi) => {
 
         if (juegoi.id == cJuego[i].querySelector('.id input ').value) {
 
           let ElementoCarrito = new Carrito(juegoi.id, juegoi.nombre, juegoi.precio, 1, juegoi.img);
-          if (arregloCarrito.length == 0) {
+          let existe = arregloCarrito.find((juego) => juego.id == ElementoCarrito.id)
           
-            arregloCarrito.push(ElementoCarrito);
-            cargaHtmlCarrito(ElementoCarrito);
-          } else {
-            
-           let Existe =arregloCarrito.find((juego)=>juego.id ==ElementoCarrito.id)
-           if(!Existe)
-           {
-            console.log("no se encuentra el dato lo agregare");
-            arregloCarrito.push(ElementoCarrito);
-            cargaHtmlCarrito(ElementoCarrito);
-           }else
-           {
-            console.log("Solo agregare la cantidad");
-            //ElementoCarrito.sumaUnidad(1);
-           
-            for(let e = 0 ;e<arregloCarrito.length;e++)
-            {
-              if(ElementoCarrito.id ==idCarrito[e].value)
-              {               
-                arregloCarrito[e]["cantidad"] = arregloCarrito[e]["cantidad"]+1
-                cantCarritoMod[e].innerHTML = parseInt(cantCarritoMod[e].innerHTML)+1;
-                console.log(arregloCarrito[e]["cantidad"]);
-                
-              }
-              
-            }
-           }
-          }
+          ConsultaExistencia(existe, ElementoCarrito);
 
         }
       })
-      console.log(arregloCarrito);
-      carritoJson = JSON.stringify(arregloCarrito);
-      localStorage.setItem("carrito",carritoJson);
+      let carritoJson = JSON.stringify(arregloCarrito);
+      localStorage.setItem("carrito", carritoJson);
+     
     });
   }
- 
-  
 }
-const CargaArreglo = (arregloActual) => {
-  LimpiarJuegos();
-  if (arregloActual.length == 0) {
-    arregloActual = CreaContenedorJuego(arregloJuegos);
-    agregaACarrito();
-    //console.log(arregloActual);
 
+const ConsultaExistencia = (existe,ElementoCarrito) =>
+{
+  let cantCarritoMod = document.querySelectorAll('.cantidad-carritoMod');
+  let idCarrito = document.querySelectorAll('.id-carrito input');
+  if (!existe) {
+    console.log("no se encuentra el dato lo agregare");
+    arregloCarrito.push(ElementoCarrito);
+    cargaHtmlCarrito(ElementoCarrito);
+    EliminaJuegoCarrito();
+    
   } else {
-    CreaContenedorJuego(arregloActual);
-    agregaACarrito();
+    console.log("Solo agregare la cantidad");
+    for (let e = 0; e < arregloCarrito.length; e++) {
+      if (ElementoCarrito.id == idCarrito[e].value) {
+        arregloCarrito[e]["cantidad"] = arregloCarrito[e]["cantidad"] + 1
+        cantCarritoMod[e].innerHTML = parseInt(cantCarritoMod[e].innerHTML) + 1;
+        console.log(arregloCarrito[e]["cantidad"]);
+      }
+    }
   }
-};
-CargaArreglo(arregloActual);
+}
+// carga el Arreglo actual, en el caso de que sea 0 que es el inicio se cargara por defecto el arreglo de juegos, ademas de que al cargar cada arreglo
+// se agregara la funccion de agregar al carrutito
+const CargaArreglo = (arregloActual) => {
+  arregloActual.length ==0 ? (LimpiarJuegos(),arregloActual = CreaContenedorJuego(arregloJuegos),
+  agregaACarrito()
+  ):(LimpiarJuegos(),CreaContenedorJuego(arregloActual),
+  agregaACarrito())
+}; 
+CargaArreglo(arregloActual);//carga e,l arreglo por primera vez
 
 const btnComprar = document.getElementById('botonComprar');
 
 btnComprar.addEventListener("click", () => {
-  
-  if(arregloCarrito.length==0)
-  {
+
+  if (arregloCarrito.length == 0) {
     alert("no hay nada en carro");
-  }else
-  {
-    
-    let mensaje ="";
-    let total = 0;
-    arregloCarrito.forEach(Juego => {
-       mensaje += `Juego: ${Juego.nombre} Precio: $${Juego.precio} X ${Juego.cantidad}\n`;
-       total += Juego.precio*Juego.cantidad;
-       arregloJuegos.find(idCont=>
-       {
-        
-        if(idCont.id ==Juego.id)
-        idCont.stock =idCont.stock-Juego.cantidad;
-          //console.log(idCont.stock);
-          
-       })
-       console.log(arregloJuegos[Juego.id].stock);
-    });
-    
-    mensaje += `\n Su total es de $${total} gracias por su compra`;
-   
+  } else {
+    creaMensajeCompra()
     CargaArreglo(arregloActual)
-    alert(mensaje);
     alert("no se eliminara el carrito local actual ")
-
-
     // let tbody=document.querySelector(".tbody-carrito");
     // console.log(tbody.firstChild);
     // while (tbody.firstChild)
     // {
     //   tbody.removeChild(tbody.firstChild)
     // }
-    location.reload();
+    //location.reload();
   }
 });
+
+const creaMensajeCompra = () => {
+  let mensaje = "";
+  let total = 0;
+  arregloCarrito.forEach(Juego => {
+    mensaje += `Juego: ${Juego.nombre} Precio: $${Juego.precio} X ${Juego.cantidad}\n`;
+    total += Juego.precio * Juego.cantidad;
+    arregloJuegos.find(idCont => {
+
+      if (idCont.id == Juego.id)
+        idCont.stock = idCont.stock - Juego.cantidad;
+      //console.log(idCont.stock);
+
+    })
+    console.log(arregloJuegos[Juego.id].stock);
+  });
+
+  mensaje += `\n Su total es de $${total} gracias por su compra`;
+  alert(mensaje);
+}
 
 const CargaRadioButons = (arregloPlataformas) => {
   let contenedorRadio = document.querySelector(".radio-filter");
@@ -201,7 +154,6 @@ function LimpiarJuegos() {
 
 const preCarga = () =>  
 {
-
   const carritoJso = localStorage.getItem("carrito");
   const newCarrito = JSON.parse(carritoJso);
 
@@ -210,24 +162,14 @@ const preCarga = () =>
     console.log("no hay nada en almacenamiento local");
   }else
   {
-    arregloCarrito = newCarrito;
-    newCarrito.forEach(juegoCarrito => {
+    arregloCarrito.push(...newCarrito);
+    arregloCarrito.forEach(juegoCarrito => {
       cargaHtmlCarrito(juegoCarrito);
     });
   } 
 }
-preCarga();
-const BtnJuegoAEliminar = document.querySelectorAll('.EliminaJuegoCarrito');
-let idCarrito = document.querySelectorAll('.id-carrito input');
-const  EliminaJuegoCarrito = () => 
-{
-  for (let i = 0;i<BtnJuegoAEliminar.length;i++)
-  {
-    BtnJuegoAEliminar[i].addEventListener('click',()=>{alert("hola desde y la id es "+idCarrito[i].value)})
-  }
-}
-EliminaJuegoCarrito();
-
+preCarga();//carga el almacenamiento de storage hacia el arreglo de carrito y carga el carrito al html
+//crea el htm del carrito
 function cargaHtmlCarrito(ElementoCarrito) {
   const Tabla = document.querySelector('.tbody-carrito');
 
@@ -244,3 +186,25 @@ function cargaHtmlCarrito(ElementoCarrito) {
   contenedor.innerHTML = contenidoCarrito;
   Tabla.appendChild(contenedor);
 }
+
+const  EliminaJuegoCarrito = () => 
+{
+  const BtnJuegoAEliminar = document.querySelectorAll('.EliminaJuegoCarrito');
+  let idCarrito = document.querySelectorAll('.JuegoCarrito');
+  //console.log(BtnJuegoAEliminar);
+
+  for (let i = 0;i<BtnJuegoAEliminar.length;i++)
+  {
+    //console.log(BtnJuegoAEliminar[i]);
+    BtnJuegoAEliminar[i].addEventListener('click',()=>{
+      
+    idCarrito[i].remove();
+    arregloCarrito= arregloCarrito.filter((juegoCarrito) => !juegoCarrito.id.toString().includes(idCarrito[i].querySelector('.id-carrito input').value));
+
+      
+  })
+  }
+}
+EliminaJuegoCarrito();
+
+
