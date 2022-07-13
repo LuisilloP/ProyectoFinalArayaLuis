@@ -1,9 +1,30 @@
-import { arregloJuegos,arregloPlataformas} from "./baseDatosJuegos";
 import { agregaACarrito } from "./juegosCarritoCarga";
 export{arregloJuegos,arregloActual,CargaArreglo,arregloPlataformas};
-//import { Carrito } from "./carrito.class";
+
+const arregloPlataformas = ["PS4", "Nintendo Switch", "Xbox"];
+let datos =[]
+let arregloJuegos = []
 let arregloActual=[];
-arregloActual=arregloJuegos;
+const obtieneDatos = async (url) =>
+{
+  try
+  {
+    const response = await fetch(url)
+    const data = await response.json()
+    datos = data;
+  }catch(err)
+  {
+    console.log(err);
+  }finally
+  {
+    await CargaArreglo(datos);
+    arregloJuegos = datos;
+    
+    arregloActual=arregloJuegos;
+  }
+}
+obtieneDatos("https://62cd8ae9066bd2b69927f916.mockapi.io/Juegos")
+
 //carga de Plataformas en Juegos 
 const CargaRadioButons = (arregloPlataformas) => {
   let contenedorRadio = document.querySelector(".radio-filter");
@@ -61,5 +82,3 @@ const CargaArreglo = (arregloActual) => {
   arregloActual.length ==0 ? (LimpiarJuegos(),agregaACarrito()
   ):(LimpiarJuegos(),CreaContenedorJuego(arregloActual),agregaACarrito())
 }; 
-CargaArreglo(arregloActual);
-console.log(arregloActual);

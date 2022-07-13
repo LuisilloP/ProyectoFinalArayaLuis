@@ -1,0 +1,82 @@
+[
+    {
+        "id": 4,
+        "nombre": "Super Mario Odyssey",
+        "img": "./Img/nintendoSwitch/marioO.jpg",
+        "precio": 10000,
+        "plataforma": "Nintendo Switch",
+        "stock": 100
+    },
+    {
+        "id": 5,
+        "nombre": "Super Smash Ultimate",
+        "img": "./Img/nintendoSwitch/superSmash.jpg",
+        "precio": 70000,
+        "plataforma": "Nintendo Switch",
+        "stock": 100
+    },
+    {
+        "id": 6,
+        "nombre": "Pokemon let's Go Pikachu",
+        "img": "./Img/nintendoSwitch/pokemonPika.jpg",
+        "precio": 15000,
+        "plataforma": "Nintendo Switch",
+        "stock": 200
+    },
+    {
+        "id": 7,
+        "nombre": "Zelda Breath of the wild",
+        "img": "./Img/nintendoSwitch/zelda.jpg",
+        "precio": 50000,
+        "plataforma": "Nintendo Switch",
+        "stock": 100
+    },
+    {
+        "id": 0,
+        "nombre": "God of War",
+        "img": "./Img/ps4/godJuego.jpg",
+        "precio": 50000,
+        "plataforma": "PS4",
+        "stock": 100
+    },
+    {
+        "id": 1,
+        "nombre": "GTA V",
+        "img": "./Img/ps4/gtaJuego.jpg",
+        "precio": 40000,
+        "plataforma": "PS4",
+        "stock": 200
+    },
+    {
+        "id": 2,
+        "nombre": "Uncharted",
+        "img": "./Img/ps4/unchar.png",
+        "precio": 30000,
+        "plataforma": "PS4",
+        "stock": 100
+    },
+    {
+        "id": 3,
+        "nombre": "Dragon Ball kakarot",
+        "img": "./Img/ps4/dbzJuego.jpg",
+        "precio": 30000,
+        "plataforma": "PS4",
+        "stock": 100
+    },
+    {
+        "id": 8,
+        "nombre": "Halo 5",
+        "img": "./Img/xbox/xbox.jpg",
+        "precio": 35000,
+        "plataforma": "Xbox",
+        "stock": 200
+    },
+    {
+        "id": 9,
+        "nombre": "Minecraft",
+        "img": "./Img/xbox/minecraft.jpg",
+        "precio": 20000,
+        "plataforma": "Xbox",
+        "stock": 100
+    }
+]

@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { arregloJuegos } from './baseDatosJuegos';
+import { arregloJuegos } from './juegosCargaDatos';
 export { alertaSweetToast, alertaSweetWide }
 import { CargaArreglo } from './juegosCargaDatos';
 const alertaSweetToast = (titulo, texto, icono,position,color) => {
@@ -46,6 +46,8 @@ const alertaSweetWide = (titulo, texto, icono, arr, arregloCarrito) => {
           if (idCont.id == Juego.id)
             idCont.stock = idCont.stock - Juego.cantidad;
         })
+        const Tabla = document.querySelector('.tbody-carrito');
+        Tabla.innerHTML="";
         CargaArreglo(arregloJuegos)
       });
     } else if (result.isDenied) {

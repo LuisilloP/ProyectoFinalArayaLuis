@@ -18,8 +18,7 @@ function agregaACarrito() {
 
         }
       })
-      let carritoJson = JSON.stringify(arregloCarrito);
-      localStorage.setItem("carrito", carritoJson);
+      localStorage.setItem("carrito",JSON.stringify(arregloCarrito));
      
     });
   }
@@ -63,19 +62,21 @@ const EliminaJuegoCarrito = () => {
             let img =idCarrito[i].querySelector(".img-min-carrito").getAttribute('src');
             alertaSweetToast("Se ha Eliminado del carrito",nombre,img,"bottom-left","red");
             arregloCarrito = arregloCarrito.filter((juegoCarrito) => !juegoCarrito.id.toString().includes(idCarrito[i].querySelector('.id-carrito input').value));
+            localStorage.removeItem("carrito");
+            localStorage.setItem("carrito",JSON.stringify(arregloCarrito));
         })
     }
 }
 const cargaHtmlCarrito =(ElementoCarrito)=> {
   const Tabla = document.querySelector('.tbody-carrito');
-
+  let {id,nombre,precio,cantidad,img} = ElementoCarrito;
   let contenidoCarrito = `
-    <td><img class="img-min-carrito" src="${ElementoCarrito.img}"></td>
-      <td id ="nombreJuegoCarrito">${ElementoCarrito.nombre}</td>
-      <td class="cantidad-carritoMod">${ElementoCarrito.cantidad}</td>
-      <td>${ElementoCarrito.precio}</td>
+    <td><img class="img-min-carrito" src="${img}"></td>
+      <td id ="nombreJuegoCarrito">${nombre}</td>
+      <td class="cantidad-carritoMod">${cantidad}</td>
+      <td>${precio}</td>
       <td ><a class ="EliminaJuegoCarrito" >Eliminar</a></td>
-      <div class="id-carrito"><input type ="hidden" value =${ElementoCarrito.id}></div>
+      <div class="id-carrito"><input type ="hidden" value =${id}></div>
       `
   const contenedor = document.createElement('tr');
   contenedor.classList.add("JuegoCarrito")
@@ -94,7 +95,7 @@ const preCarga = () =>
   {
     arregloCarrito.push(...newCarrito);
     arregloCarrito.forEach(juegoCarrito => {
-      cargaHtmlCarrito(juegoCarrito);
+    cargaHtmlCarrito(juegoCarrito);
     });
   } 
 }
@@ -106,9 +107,8 @@ btnComprar.addEventListener("click", () => {
     alert("no hay nada en carro");
   } else {
       creaMensajeCompra()
-   
-    
-    //CargaArreglo(arregloActual)
+      localStorage.removeItem("carrito");
+      arregloCarrito = []
   }
 });
 
@@ -125,17 +125,5 @@ const creaMensajeCompra = () => {
   let respuesta = alertaSweetWide("Detalle Compra",mensaje,"question",arregloJuegos,arregloCarrito)
   console.log(respuesta);
 }
-///recuerda llamar
-const descuentaStock = ()=>
-{
-  arregloJuegos.find(idCont => {
-
-    if (idCont.id == Juego.id)
-      idCont.stock = idCont.stock - Juego.cantidad;
-
-  })
-}
 
 preCarga();//carga el almacenamiento de storage hacia el arreglo de carrito y carga el carrito al html
-EliminaJuegoCarrito();
-agregaACarrito();

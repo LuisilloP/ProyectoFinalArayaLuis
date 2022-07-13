@@ -48,21 +48,25 @@ const buscadorPrototipo = (plataforma = [], accion = 0, input = "") => {
       
         if (input.length > 0)//si no estan completos pregunta  si es solo input
         {
-            console.log(arregloActualB)
+            //console.log(arregloActualB)
             arregloActualB = arregloJuegos.filter((juego) => juego.nombre.toLowerCase().includes(input.toLowerCase().trim()));
             //filtra las plataformas para no eliminarlas
             noEliminar = arregloActualB.map((juego) => { return juego.plataforma })
             noEliminar = [... new Set(noEliminar)]
             EliminarCheckBox(noEliminar);
+            console.log(arregloActualB)
         } else//si no es input y no esta completo por defecto es plataforma 
         {
+            
             let arregloMoment = [];
             arregloActualB = [];
             plataforma.forEach(tipo => {
+                console.log(arregloActualB);
                 arregloMoment = arregloJuegos.filter((juego) => juego.plataforma.includes(tipo));
                 arregloActualB = arregloActualB.concat(arregloMoment);
+                
             });
-            
+            console.log(arregloActualB);
         }
     } else {
         console.log("no estas buscando nada");
