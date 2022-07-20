@@ -1,0 +1,35 @@
+.preloader 
+{
+    position: relative;
+    display: inline-block;
+    padding: 40px;
+    border-radius: 50%;
+    animation: rotate 2s linear infinite;
+    background: linear-gradient(180deg, rgb(38, 38, 38) 0%, rgba(0, 202, 171, 0.68) 76%);
+    width: 5rem;
+    height: 5rem;
+    &:after
+    {
+        content:" ";
+        background:#212020;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 50%;
+        margin: 5px;
+
+    }
+  
+}
+@keyframes rotate {
+    from
+    {
+        transform: rotate(0deg);
+    }
+    to
+    {
+        transform: rotate(360deg);
+    }
+}

@@ -1,11 +1,10 @@
-import { arregloJuegos, CargaArreglo, arregloPlataformas,arregloActual } from "./juegosCargaDatos";
-
- let checkeados = [];
- let noEliminar = [];
+import { arregloJuegos, CargaArreglo, arregloPlataformas, arregloActual } from "./juegosCargaDatos";
+let checkeados = [];
 let arregloActualB = arregloActual;
 
 const inputPalabraBuscar = document.querySelector("#inputNombre");
-function EstaCheck() {
+function EstaCheck() //sirve para identificar si estan check los input o si no lo estan 
+{
     let InputRadio = document.querySelectorAll(".radio-filter .boxRadio .radio-class");
     const checkboxes = document.querySelectorAll(".radio-class");
     for (let i = 0; i < checkboxes.length; i++) {
@@ -21,78 +20,55 @@ function EstaCheck() {
                 checkeados = checkeados.filter((elimina) => !elimina.includes(InputRadio[i].value));//elimina del arreglo lo que esta check;
 
             }
-
-            buscadorPrototipo(checkeados, 0, inputPalabraBuscar.value)
+            buscadorPrototipo(checkeados, 2, inputPalabraBuscar.value)
         })
     }
 }
 EstaCheck();
-inputPalabraBuscar.addEventListener("input", (e) => {
 
+inputPalabraBuscar.addEventListener("input", (e) => {
+    let InputRadio = document.querySelectorAll(".radio-filter .boxRadio .radio-class");
     if (inputPalabraBuscar.value) {
 
-        buscadorPrototipo([], 0, inputPalabraBuscar.value)
-
+        buscadorPrototipo(checkeados, 2, inputPalabraBuscar.value)
     } else {
-        let InputRadio = document.querySelectorAll(".radio-filter .boxRadio .radio-class");
         for (let i = 0; i < arregloPlataformas.length; i++) {
             InputRadio[i].disabled = false;
         }
-        CargaArreglo(arregloJuegos);
+        buscadorPrototipo(checkeados, 2, inputPalabraBuscar.value)
+
     }
+
 })
 
-const buscadorPrototipo = (plataforma = [], accion = 0, input = "") => {
-    //debugger;
-    if (!plataforma.length == 0 || !accion == 0 || !input.length == 0) {
-      
-        if (input.length > 0)//si no estan completos pregunta  si es solo input
-        {
-            //console.log(arregloActualB)
-            arregloActualB = arregloJuegos.filter((juego) => juego.nombre.toLowerCase().includes(input.toLowerCase().trim()));
-            //filtra las plataformas para no eliminarlas
-            noEliminar = arregloActualB.map((juego) => { return juego.plataforma })
-            noEliminar = [... new Set(noEliminar)]
-            EliminarCheckBox(noEliminar);
-            console.log(arregloActualB)
-        } else//si no es input y no esta completo por defecto es plataforma 
-        {
-            
-            let arregloMoment = [];
+const buscadorPrototipo = (plataforma = [], accion = 0, input = "") => {//buscador el cual identifica los input o checks
+    let arregloMoment = [];
+    if (accion == 2) {
+        if (input.length>0) {//si hay un input filtra primero por su input luego por su plataforma
+            arregloActualB = [];
+            if (plataforma.length == 0) {//si no hay una plataforma al momento de buscar
+                arregloActualB = arregloJuegos.filter((juego) => juego.nombre.toLowerCase().includes(input.toLowerCase().trim()))
+            }else
+            {
+                plataforma.forEach(tipo => {
+                    arregloMoment = arregloJuegos.filter((juego) => juego.nombre.toLowerCase().includes(input.toLowerCase().trim()))
+                    arregloMoment = arregloMoment.filter((juego) => juego.plataforma.includes(tipo));
+                    arregloActualB = arregloActualB.concat(arregloMoment);
+                });
+            }
+        } else if (plataforma.length == 0) {
+            console.log("no estas buscando nada");
+            arregloActualB = arregloJuegos;
+            //EliminarCheckBox(arregloActualB);
+
+        } else {
             arregloActualB = [];
             plataforma.forEach(tipo => {
-                console.log(arregloActualB);
                 arregloMoment = arregloJuegos.filter((juego) => juego.plataforma.includes(tipo));
                 arregloActualB = arregloActualB.concat(arregloMoment);
-                
             });
-            console.log(arregloActualB);
         }
-    } else {
-        console.log("no estas buscando nada");
-        arregloActualB = arregloJuegos;
-
-
+        console.log(arregloActualB);
     }
     CargaArreglo(arregloActualB);
 }
-
-const EliminarCheckBox = (noEliminar) => {
-    const checkboxes = document.querySelectorAll(".radio-class");
-    let InputRadio = document.querySelectorAll(".radio-filter .boxRadio .radio-class");
-
-    let arregloEliminar = comparaArreglosDescarta(arregloPlataformas, noEliminar)//compara arreglos, y descarta los que no estan en la comparacion
-
-    for (let i = 0; i < arregloPlataformas.length; i++) {
-        InputRadio[i].disabled = false;
-        for (let e = 0; e < arregloEliminar.length; e++) {
-
-            if (InputRadio[i].value == arregloEliminar[e]) {
-                console.log("eliminamos");
-                InputRadio[i].disabled = true;
-            }
-        }
-    }
-
-}
-const comparaArreglosDescarta = (arr1, arr2) => { return arr1.sort().filter(element => !arr2.sort().includes(element)) }

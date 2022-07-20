@@ -3,6 +3,14 @@
 .buscadorPrimigenio
 {
     color: white;
+    border-radius: 1rem;
+    height:39rem;
+    margin: 5px;
+    background: linear-gradient(180deg, rgb(38, 38, 38) 0%, rgba(0, 123, 105, 0.26) 76%);
+    .nombre-filter,.radio-filter
+    {
+        margin-left: 1rem;
+    }
     .boxRadio
     {
         display: flex;
@@ -12,7 +20,7 @@
     {
         height: 1.7em;
         width: 1.7rem;
- 
+        
     }
     .input-text
     {

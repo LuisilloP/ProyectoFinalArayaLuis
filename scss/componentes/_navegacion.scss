@@ -4,7 +4,7 @@ header
 {
 
      @include m.flex(row,wrap,space-between,center);
-    background: rgb(0,0,0);
+    background: rgba(8, 36, 0, 0.67);
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2629784335609243) 76%); 
     position: fixed;
     width: 100%;
@@ -13,7 +13,7 @@ header
     &.sigue //cuando tiene la clase sigue
     {
         transition: all .5s ease;
-        background-color: rgba(0, 0, 0, 0.67);
+        background-color: rgba(0, 123, 105, 0.26);
 
         padding: 0;
     }    
@@ -38,7 +38,7 @@ header
         background-color: transparent;
     border: none;
     display: none;
-    @include m.mediaAlta(){display: block;}
+    @include m.mediaBaja(){display: block;}
     &:hover
     {
         cursor: pointer;
@@ -46,30 +46,25 @@ header
     }
     .nav
     {
-        @include m.mediaAlta()
+        @include m.mediaBaja()
         {
             width: 100%;
-            //display: none;
             height: 0vh;
             opacity: 0;
             transition: all .5s ease;
-            //pointer-events: none;
             overflow: hidden;
             @include m.flex(column,nowrap,center,center);
             &.active
             {
                 height: 30vh;
-                opacity: 1;
-                //pointer-events: auto;
-                //display: flex;
-                
+                opacity: 1;                
             }
         }
   
         .ul
         {
             @include m.flex(row,wrap,flex-end,center);
-            @include m.mediaAlta()
+            @include m.mediaBaja()
             {
                 flex-direction: column;
                 padding-left: 0;
@@ -80,18 +75,18 @@ header
         {
             margin: 0.5rem;
             list-style: none;
-            @include m.mediaAlta
+            @include m.mediaBaja
             {
                 margin: 1rem 0;
             }
            a{
-                color: white;
+                color:white;
                 font-family: "Kdam Thmor Pro", sans-serif;
                 padding: 1.5rem;
             }
         }
     }
     a{
-        color: inherit;
+        color:white;
     }
 }

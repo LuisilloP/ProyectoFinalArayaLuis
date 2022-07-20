@@ -8,7 +8,7 @@
 
 
 @mixin baja {
-    @media screen and (max-width:400px)
+    @media screen and (max-width:450px)
     {
         @content
     }
@@ -19,11 +19,17 @@
         @content
     }
 };
-@mixin mediaAlta {
-    @media screen and (max-width:1000px)
+@mixin mediaBaja {
+    @media screen and (max-width:1060px)
     {
         @content
     }
-}
+};
+@mixin mediaAlta {
+    @media screen and (max-width:1080px)
+    {
+        @content
+    }
+};
 
 

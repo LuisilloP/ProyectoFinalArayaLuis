@@ -1,9 +1,11 @@
 import { arregloJuegos }  from './juegosCargaDatos';
 import { Carrito} from './carrito.class';
-import{alertaSweetToast,alertaSweetWide} from './sweetAlert'
+import{alertaSweetToast,alertaSweetWide,alertaCarritoVacio} from './sweetAlert'
 export{agregaACarrito}
 let arregloCarrito = [];
-function agregaACarrito() {
+const codigosDescuento = {CODERHOUSE: 0.3,APROVADO:0};
+const inputDescuento = document.querySelector('.codigoDescuento');
+function agregaACarrito() {//agrega juegos al carrito al hacer doble click ademas de cargar los datos locales  
   const cJuego = document.querySelectorAll('.contenedorJuego');
   for (let i = 0; i < cJuego.length; i++) {
     cJuego[i].addEventListener("dblclick", function () {
@@ -14,8 +16,7 @@ function agregaACarrito() {
           let ElementoCarrito = new Carrito(juegoi.id, juegoi.nombre, juegoi.precio, 1, juegoi.img);
           let existe = arregloCarrito.find((juego) => juego.id == ElementoCarrito.id)
           
-          ConsultaExistencia(existe, ElementoCarrito);
-
+            ConsultaExistencia(existe, ElementoCarrito,juegoi.stock);
         }
       })
       localStorage.setItem("carrito",JSON.stringify(arregloCarrito));
@@ -23,13 +24,14 @@ function agregaACarrito() {
     });
   }
 }
-const ConsultaExistencia = (existe,ElementoCarrito) =>
+const ConsultaExistencia = (existe,ElementoCarrito,stockActual) =>// consula si es que existe el stock actual y si existe el juefo dentro del carrito
+
 {
   let cantCarritoMod = document.querySelectorAll('.cantidad-carritoMod');
   let idCarrito = document.querySelectorAll('.id-carrito input');
+  if(stockActual)//wtf  
   if (!existe) {
-    console.log(ElementoCarrito.img);
-  
+
     alertaSweetToast("Se ha agregado al carrito",ElementoCarrito.nombre,ElementoCarrito.img)
     arregloCarrito.push(ElementoCarrito);
     cargaHtmlCarrito(ElementoCarrito);
@@ -38,17 +40,24 @@ const ConsultaExistencia = (existe,ElementoCarrito) =>
   } else {
    let stockMuestra =0;
     for (let e = 0; e < arregloCarrito.length; e++) {
-      if (ElementoCarrito.id == idCarrito[e].value) {
-        arregloCarrito[e]["cantidad"] = arregloCarrito[e]["cantidad"] + 1
-        cantCarritoMod[e].innerHTML = parseInt(cantCarritoMod[e].innerHTML) + 1;
-        //console.log(arregloCarrito[e]["cantidad"]);
-        stockMuestra =arregloCarrito[e]["cantidad"];
+      if(stockActual<=arregloCarrito[e]["cantidad"])
+      {
+        stockMuestra = "Max"
+      }else
+      {
+        if (ElementoCarrito.id == idCarrito[e].value) {
+          arregloCarrito[e]["cantidad"] = arregloCarrito[e]["cantidad"] + 1
+          cantCarritoMod[e].innerHTML = parseInt(cantCarritoMod[e].innerHTML) + 1;
+          //console.log(arregloCarrito[e]["cantidad"]);
+          stockMuestra =arregloCarrito[e]["cantidad"];
+        }
       }
+      
     }
     alertaSweetToast("Se ha agregado un nuevo stock. ",ElementoCarrito.nombre+" Stock Actual : "+stockMuestra,ElementoCarrito.img)
   }
 }
-const EliminaJuegoCarrito = () => {
+const EliminaJuegoCarrito = () => {//elimina juego del carrito al darle click 
     const BtnJuegoAEliminar = document.querySelectorAll('.EliminaJuegoCarrito');
     let idCarrito = document.querySelectorAll('.JuegoCarrito');
     console.log(BtnJuegoAEliminar);
@@ -67,7 +76,7 @@ const EliminaJuegoCarrito = () => {
         })
     }
 }
-const cargaHtmlCarrito =(ElementoCarrito)=> {
+const cargaHtmlCarrito =(ElementoCarrito)=> {//crea el html del carrito y lo carga
   const Tabla = document.querySelector('.tbody-carrito');
   let {id,nombre,precio,cantidad,img} = ElementoCarrito;
   let contenidoCarrito = `
@@ -83,7 +92,7 @@ const cargaHtmlCarrito =(ElementoCarrito)=> {
   contenedor.innerHTML = contenidoCarrito;
   Tabla.appendChild(contenedor);
 }
-const preCarga = () =>  
+const preCarga = () =>  //verifica si hay juegos en el local storage y los carga en el caso de que no muestra console.log
 {
   const carritoJso = localStorage.getItem("carrito");
   const newCarrito = JSON.parse(carritoJso);
@@ -102,13 +111,12 @@ const preCarga = () =>
 const btnComprar = document.getElementById('botonComprar');
 
 btnComprar.addEventListener("click", () => {
-
+  
   if (arregloCarrito.length == 0) {
-    alert("no hay nada en carro");
+    alertaCarritoVacio();
   } else {
       creaMensajeCompra()
-      localStorage.removeItem("carrito");
-      arregloCarrito = []
+      console.log(arregloCarrito);
   }
 });
 
@@ -121,9 +129,29 @@ const creaMensajeCompra = () => {
     //console.log(arregloJuegos[Juego.id].stock);
   });
 
-  mensaje += `<br>Su total es de $${total}`;
-  let respuesta = alertaSweetWide("Detalle Compra",mensaje,"question",arregloJuegos,arregloCarrito)
-  console.log(respuesta);
-}
+  if(inputDescuento.value.length>0)
+  {
+    let noexisteCode = false;
+    for (const nombre in codigosDescuento)
+    {
+     
+      if(nombre==inputDescuento.value.toUpperCase())
+      {
+        noexisteCode =true;
+        mensaje += `<br><br>Su total es de <del>$${total}</del>`;
+        mensaje += `<br>Su total con descuento es de : $${total*codigosDescuento[nombre]}`;
+      }
+    }
+    noexisteCode==false? mensaje += `<br><br>Su total es de $${total}`:""
+  }else
+  {
+    mensaje += `<br><br>Su total es de $${total}`;
+  }
+  
+  alertaSweetWide("Detalle Compra",mensaje,"question",arregloJuegos,arregloCarrito)
 
-preCarga();//carga el almacenamiento de storage hacia el arreglo de carrito y carga el carrito al html
+}
+// llama a las funciones por primera vez para poder ejecutarse correctamente
+preCarga();
+EliminaJuegoCarrito();
+agregaACarrito(); 

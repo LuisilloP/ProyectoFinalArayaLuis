@@ -25,11 +25,11 @@
                 </button>
                 <nav class="nav">
                     <ul class="ul">
-                        <li class="li"><a href="#" class="a">Agregar Producto</a></li>
-                        <li class="li"><a href="#" class="a">Nosotros</a></li>
-                        <li class="li"><a href="#" class="a">Mas vendidos</a></li>
-                        <li class="li"><a href="#" class="a">Ofertas</a></li>
-                        <li class="li"><a href="#" class="a">No hagas click</a></li>
+                        <li class="li"><a href="#" class="a">Relleno</a></li>
+                        <li class="li"><a href="#" class="a">Relleno</a></li>
+                        <li class="li"><a href="#" class="a">Relleno</a></li>
+                        <li class="li"><a href="#" class="codigosDescuentoBTN">CODIGOS DE DESCUENTO</a></li>
+                        <li class="li"><a href="#" class="instrucionesBtn">INSTRUCCIONES COMPRA</a></li>
                     </ul>
                 </nav>
             </header>
@@ -39,8 +39,9 @@
         <h1 id="titulo">Bienvenidos a la mejor tienda de juegos Digitales</h1>
         <div id="buscadorYjuego">
             <div class="buscadorPrimigenio">
-                <h2>Filtro</h2>
+                
                 <div class="nombre-filter"> <label for="inputNombre">
+                    <h2>Filtro</h2>
                         <h3>Nombre</h3>
                     </label>
                     <input type="text" id="inputNombre" class="input-text" />
@@ -55,7 +56,9 @@
                     <button type="submit" id='botonBuscar' class="centrar boton">Buscar</button>
                 </div>
             </div>
-            <div class="contenedorJuegos" id="contenedorJuegos"></div>
+            <div class="contenedorJuegos" id="contenedorJuegos">
+                <div class="preloader"></div>
+            </div>
         </div>
         <br>
         <div class="fondo-carrito">
@@ -71,10 +74,13 @@
                     </thead>
                     <tbody class="tbody-carrito"></tbody>
                 </table>
-                <div class="btn_compraCarrito"> <button type="submit" id='botonComprar'
-                        class="centrar boton">Comprar</button></div>
+                <div></div>
+                <div class="btn_compraCarrito"><label>Codigo Descuento: </label>
+                    <input type="text" class="codigoDescuento" > <button type="submit" id='botonComprar'
+                        class="centrar boton">Comprar</button>
+                </div>
             </div>
-            
+
         </div>
         <div class="div-btn-carrito">
             <button class="btn-carrito">
@@ -96,7 +102,7 @@
             </button>
         </div>
     </div>
-   
+
     <footer>
     </footer>
 </body>
